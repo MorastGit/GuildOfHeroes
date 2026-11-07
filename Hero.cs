@@ -1,10 +1,27 @@
 public class Hero
 {
-    public string Name;
+    private string _name = "Безымянный герой";
+
+    public string Name {
+        get {
+            return _name;
+        }
+
+        private set {
+            if (string.IsNullOrWhiteSpace(value)) {
+                _name = "Безымянный герой";
+                return;
+            }
+
+            _name = value.Trim();
+        }
+    }
+
     public int Health { get; private set; }
     public int MaxHealth { get; private set; }
-    public int Level;
-    public int Experience;
+    public int Level { get; private set; }
+    public int Experience { get; private set; }
+
 
 public Hero(string name, int health) {
     Name = name;
@@ -66,8 +83,14 @@ public void Heal(int amount) {
         if (amount <= 0) {
             return;
         }
+
+        if (amount > 2147483647 - Experience) {
+            return;
+        }
+
         Experience += amount;
-    }
+    }  
+
 
     public bool IsAlive() {
         return Health > 0;
