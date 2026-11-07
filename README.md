@@ -10,3 +10,4 @@
 - GainExperience(int amount) - повышает опыт на amount.
 - IsAlive() - возвращает true, если здоровье больше 0, иначе false.
 - GetInfo() - возвращает строку с информацией о герое.
+
