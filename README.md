@@ -121,3 +121,38 @@
 9. Какие проверки в собственном проекте относятся именно к его предметной области?
 
 > у меня в проекте была картинная галерея и там я реализовала корректность записи имени она почти такая же как и в этом проекте + корректность записи имени автора также там реализован запрет на год больше 2026 то есть ккартине нельзя установить 2027 и тд
+
+## Лаб ооп №4
+
+``` csharp
+Guild traceGuild = new Guild("Трассировка");
+Hero first = new Hero("Первый", 100);
+Hero second = new Hero("Второй", 80);
+
+traceGuild.Heroes.Add(first);
+traceGuild.Heroes.Add(second);
+traceGuild.Heroes.Add(first);
+
+first.TakeDamage(30);
+
+Console.WriteLine(traceGuild.Heroes.Count);
+Console.WriteLine(traceGuild.Heroes[2].Health);
+foreach (Hero hero in traceGuild.Heroes) {
+    Console.WriteLine($"{hero.Name}: {hero.Health}");
+}
+Console.WriteLine(traceGuild.Heroes[traceGuild.Heroes.Count - 2].Name);
+```
+
+| Индекс  | Ссылка ведёт к | Health после урона |
+| --- | --- | --- |
+| 0 | first | 70 |
+| 1 | second | 80 |
+| 2 | first | 70 |
+---
+
+Почему начальным значением берём guild.Heroes[0], а не, например, «нового героя со здоровьем 0»?
+> использование реального первого элемента коллекции гарантирует что поиск наибольшего хп сработает корректно при любых данных и вернет существующий объект  
+
+Если бы у двух героев здоровье было одинаково максимальным, кто попал бы в strongest — первый или последний из них? Что в условии на это влияет?
+> если поставить >= то последнего, если просто > то первого
+
